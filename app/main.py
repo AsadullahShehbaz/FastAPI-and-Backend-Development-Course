@@ -46,19 +46,32 @@ def create_product(data: ProductCreate, session: Session = Depends(get_session))
 @app.patch("/product")
 def patch_product(id : int, 
                   body: ProductUpdate,
+                  session: Session = Depends(get_session)
                   )-> dict[str,Any]:
     
-    updated = db.update(id,body)
+    update = body.model_dump(exclude_none=True)
 
-    if updated is None:
+    if update is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="Product with the given ID was not found!",
+            detail="Data to update the product is not provided!",
         )
-    return updated
+
+    product = session.get(Product,id)
+    product.sqlmodel_update(**update)
+    session.commit()
+    session.refresh(product)
+    return product
 
 @app.delete("/product")
-def delete_product(id: int)-> dict[str,str]:
+def delete_product(id: int,session: Session = Depends(get_session))-> dict[str,str]:
 
-     db.delete(id)
+     product = session.get(Product,id)
+     if product is None:
+         raise HTTPException(
+             status_code=status.HTTP_404_NOT_FOUND,
+             detail="Product with the given ID was not found!",
+         )
+     session.delete(product)
+     session.commit()
      return {"detail":f"Deleted the product with id {id}"}
