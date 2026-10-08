@@ -20,8 +20,8 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
-@app.get("/product",response_model=ProductRead)
-def get_product(id: int,session: Session = Depends(get_session)) -> dict:
+@app.get("/product")
+def get_product(id: int,session: Session = Depends(get_session)) -> ProductRead:
 
     product = session.get(Product,id)
     # Check whether the requested product exists
@@ -45,20 +45,35 @@ def create_product(data: ProductCreate, session: Session = Depends(get_session))
 
 @app.patch("/product")
 def patch_product(id : int, 
-                  body: ProductUpdate,
-                  )-> dict[str,Any]:
+                  data: ProductUpdate,
+                  session: Session = Depends(get_session)
+                  )-> ProductRead:
     
-    updated = db.update(id,body)
-
-    if updated is None:
+    update = data.model_dump(exclude_none=True)
+    if not update:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Product with the given ID was not found!",
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No fields provided for update!",
         )
-    return updated
+
+    product = session.get(Product,id)
+    product.sqlmodel_update(update)
+
+    session.add(product)
+    session.commit()
+    session.refresh(product)
+    return product
+
 
 @app.delete("/product")
-def delete_product(id: int)-> dict[str,str]:
+def delete_product(id: int, session: Session = Depends(get_session))-> dict[str,str]:
 
-     db.delete(id)
+     product = session.get(Product,id)
+     if product is None:
+         raise HTTPException(
+             status_code=status.HTTP_404_NOT_FOUND,
+             detail="Product with the given ID was not found!",
+         )
+     session.delete(product)
+     session.commit()
      return {"detail":f"Deleted the product with id {id}"}
