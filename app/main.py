@@ -1,11 +1,11 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, status
 from fastapi.params import Depends
+from sqlmodel import Session
 from typing import Any
 from app.database.models import Product
-from sqlmodel import Session
 
-from app.database.session import create_db_tables, get_session
+from app.database.session import SessionDep, create_db_tables, get_session
 from app.schema.models import ProductCreate, ProductRead, ProductUpdate
 # from app.database import Database
 
@@ -21,7 +21,7 @@ app = FastAPI(lifespan=lifespan)
 
 
 @app.get("/product")
-def get_product(id: int,session: Session = Depends(get_session)) -> ProductRead:
+def get_product(id: int,session: SessionDep) -> ProductRead: # type: ignore
 
     product = session.get(Product,id)
     # Check whether the requested product exists
@@ -34,7 +34,7 @@ def get_product(id: int,session: Session = Depends(get_session)) -> ProductRead:
     return product
 
 @app.post("/product")
-def create_product(data: ProductCreate, session: Session = Depends(get_session)) -> ProductRead:
+def create_product(data: ProductCreate, session: SessionDep) -> ProductRead:
 
     new_product = Product(**data.model_dump())
     session.add(new_product)
@@ -46,7 +46,7 @@ def create_product(data: ProductCreate, session: Session = Depends(get_session))
 @app.patch("/product")
 def patch_product(id : int, 
                   data: ProductUpdate,
-                  session: Session = Depends(get_session)
+                  session: SessionDep
                   )-> ProductRead:
     
     update = data.model_dump(exclude_none=True)
@@ -66,7 +66,7 @@ def patch_product(id : int,
 
 
 @app.delete("/product")
-def delete_product(id: int, session: Session = Depends(get_session))-> dict[str,str]:
+def delete_product(id: int, session: SessionDep)-> dict[str,str]:
 
      product = session.get(Product,id)
      if product is None:
