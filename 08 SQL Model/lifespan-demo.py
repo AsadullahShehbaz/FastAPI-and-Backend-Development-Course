@@ -1,29 +1,22 @@
-from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException, status
-from fastapi.params import Depends
 from typing import Any
-from app.database.models import Product
-from sqlmodel import Session
-
-from app.database.session import create_db_tables, get_session
+from fastapi import FastAPI, HTTPException, status
+from fastapi.concurrency import asynccontextmanager
 from app.schema.models import ProductCreate, ProductRead, ProductUpdate
-# from app.database import Database
-
+from rich import print 
+from rich.panel import Panel
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    create_db_tables()
+    print(Panel("Server Started...",border_style="green"))
     yield
-    # Cleanup code can go here if needed
-    
+    print(Panel("Server Stopped...",border_style="red"))
 
-# db = Database()
 app = FastAPI(lifespan=lifespan)
 
 
 @app.get("/product",response_model=ProductRead)
-def get_product(id: int,session: Session = Depends(get_session)) -> dict:
+def get_product(id: int) -> dict:
 
-    product = session.get(Product,id)
+    product = db.get(id)
     # Check whether the requested product exists
     if product is None:
         raise HTTPException(
@@ -34,13 +27,10 @@ def get_product(id: int,session: Session = Depends(get_session)) -> dict:
     return product
 
 @app.post("/product")
-def create_product(data: ProductCreate, session: Session = Depends(get_session)) -> ProductRead:
+def create_product(data: ProductCreate) -> dict[str,Any]:
 
-    new_product = Product(**data.model_dump())
-    session.add(new_product)
-    session.commit()
-    session.refresh(new_product)
-    return new_product
+    new_id = db.create(data)
+    return {"id":new_id}
 
 
 @app.patch("/product")

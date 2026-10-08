@@ -1,85 +1,101 @@
+from contextlib import contextmanager
 import sqlite3
 from typing import Any
 
 from app.schema.models import ProductCreate, ProductUpdate
 
-SEED = [
-(1001, "Wireless Mouse", 18.99, 42),
-(1002, "Mechanical Keyboard", 64.99, 18),
-(1003, "USB-C Hub", 29.99, 35),
-(1004, "Laptop Stand", 39.99, 12),
-(1005, "Webcam", 54.99, 25),
-(1006, "Bluetooth Speaker", 44.99, 30),
-(1007, "External SSD", 89.99, 10),
-]
-
 class Database:
-    def __init__(self, path: str = "products.db"):
-    # check_same_thread=False: FastAPI's threads share this connection
-        self.conn = sqlite3.connect(path, check_same_thread=False)
+
+    # Initialize DB
+    def connect_to_db(self):
+        self.conn = sqlite3.connect("products.db",check_same_thread=False)
         self.cur = self.conn.cursor()
-        self.create_table()
+        
 
     def create_table(self):
-        # Table names can NOT be "?" placeholders, so it is hard-coded
-        self.cur.execute("""
-        CREATE TABLE IF NOT EXISTS product (
-        id INTEGER PRIMARY KEY,
-        name TEXT,
-        price REAL,
-        stock INTEGER
-        )
-        """)
-    # we start from 1001:
-    # ? placeholder for a table
-    def seed(self):
-        """Insert the starter products only when the table is empty."""
-        self.cur.execute("SELECT COUNT(*) FROM product")
-        if self.cur.fetchone()[0] == 0:
-                self.cur.executemany("INSERT INTO product VALUES (?, ?, ?, ?)", SEED)
-                self.conn.commit()
-    
-    def create(self, product: ProductCreate) -> int:
-        self.cur.execute("SELECT MAX(id) FROM product")
-        last_id = self.cur.fetchone()[0]
-        new_id = (last_id or 1000) + 1
-        self.cur.execute(
-        """
-        INSERT INTO product
+        self.cur.execute('''
+            CREATE TABLE IF NOT EXISTS products (
+                id INTEGER PRIMARY KEY,
+                name TEXT NOT NULL,
+                price REAL NOT NULL,
+                stock INTEGER NOT NULL
+            )
+        ''')
+
+    def create(self,product: ProductCreate):
+
+        # Find the next id 
+        self.cur.execute('SELECT MAX(id) FROM products')
+        result = self.cur.fetchone() 
+        new_id = (result[0] or 0) + 1
+
+        self.cur.execute('''
+        INSERT INTO products (id, name, price, stock)
         VALUES (:id, :name, :price, :stock)
-        """,
-        {"id": new_id, **product.model_dump()},
-        )
+    ''', {
+        'id': new_id,
+        **product.model_dump()
+    })
+
         self.conn.commit()
         return new_id
-    
-    def get(self, id: int) -> dict[str, Any] | None:
-        self.cur.execute("SELECT * FROM product WHERE id = ?", (id,))
-        row = self.cur.fetchone()          
-        # a tuple, or None
-        # tuple -> dict (order = table definition)
-        return {
-        "id": row[0],
-        "name": row[1],
-        "price": row[2],
-        "stock": row[3],
-        } if row else None
 
-    def update(self, id: int, product: ProductUpdate) -> dict[str, Any] | None:
-        # COALESCE(a, b) = "a unless it is NULL, then b"
-        # -> fields the client did not send (None) keep their old value
-        self.cur.execute(
-        """
-        UPDATE product SET
-        price = COALESCE(:price, price),
-        stock = COALESCE(:stock, stock)
-        WHERE id = :id
-        """,
-        {"id": id, **product.model_dump()},
-        )
+    def get(self,id: int)-> dict[str,Any] | None:
+        self.cur.execute('SELECT * FROM products WHERE id = :id', {'id': id})
+        result = self.cur.fetchone()
+        
+        return {
+                'id': result[0],
+                'name': result[1],
+                'price': result[2],
+                'stock': result[3]
+            } if result else None
+
+    def update(self,id: int, product_update: ProductUpdate):
+
+        data = product_update.model_dump(exclude_none=True)
+        set_clause = ','.join(f"{key}=:{key}" for key in data)
+        
+        self.cur.execute('''
+            UPDATE products
+            SET ''' + set_clause + '''
+            WHERE id = :id
+        ''', {
+            'id': id,
+            **data
+        })
         self.conn.commit()
+
         return self.get(id)
 
-    def delete(self, id: int) -> None:
-        self.cur.execute("DELETE FROM product WHERE id = ?", (id,))
+    def delete(self,id: int):
+        self.cur.execute('DELETE FROM products WHERE id = :id', {'id': id})
         self.conn.commit()
+
+    def close(self):
+        self.conn.close()
+
+    # def __enter__(self):
+    #     self.connect_to_db()
+    #     self.create_table()
+    #     return self 
+
+    # def __exit__(self, *args):
+    #     self.close()
+
+
+
+@contextmanager
+def managed_db():
+    db = Database()
+    db.connect_to_db()
+    db.create_table()
+    try:
+        yield db 
+    finally:
+        db.close()
+
+with managed_db() as db:
+    print(db.get(1))
+
+

@@ -18,10 +18,10 @@ cursor.execute('''
 ''')
 
 # Insert row in table of database
-cursor.execute('''
-    INSERT INTO products (id, name, price, stock, status)
-    VALUES (1001, 'Wireless Mouse', 18.99, 42, 'active')
-''')
+# cursor.execute('''
+#     INSERT INTO products (id, name, price, stock, status)
+#     VALUES (1003, 'Marse Pro', 12.99, 12, 'active')
+# ''')
 
 # Select all rows from db 
 cursor.execute('SELECT * FROM products')
@@ -30,13 +30,17 @@ cursor.execute('SELECT * FROM products')
 all_rows = cursor.fetchall()
 print(all_rows)
 
-# cursor.execute('''
-#     UPDATE products SET stock = 3 WHERE id = 1002
-# ''')
+stock = input("Enter stock value: ")
+id = input("Enter id value: ")
 
+# 0 or true
 # cursor.execute('''
-#     DELETE FROM products WHERE id = 1002
-# ''')
+#     UPDATE products SET stock = :stock WHERE id = :id
+# ''', {"id": id,"stock": stock })
+
+cursor.execute('''
+    UPDATE products SET stock = :stock WHERE id >= :id
+''', {"id":id,"stock": stock })
 
 # cursor.execute('DROP TABLE products')
 # 4.Commit the changes and close the connection
