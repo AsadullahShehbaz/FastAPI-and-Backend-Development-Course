@@ -3,6 +3,7 @@ from typing_extensions import Annotated
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine,async_sessionmaker
 from sqlmodel import SQLModel
 from app.config import settings
+from app.services.product import ProductService
 
 # 1.Create the database engine asynchronously
 engine = create_async_engine(settings.POSTGRES_URL, echo=True)
@@ -20,4 +21,3 @@ async def get_session():
     async with async_session() as session:
         yield session
 
-SessionDep = Annotated[AsyncSession,Depends(get_session)]
