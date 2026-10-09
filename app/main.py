@@ -11,7 +11,7 @@ from app.schema.models import ProductCreate, ProductRead, ProductUpdate
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    create_db_tables()
+    await create_db_tables()
     yield
     # Cleanup code can go here if needed
     
@@ -21,7 +21,7 @@ app = FastAPI(lifespan=lifespan)
 
 
 @app.get("/product")
-def get_product(id: int,session: SessionDep) -> ProductRead: # type: ignore
+async def get_product(id: int,session: SessionDep) -> ProductRead: # type: ignore
 
     product = session.get(Product,id)
     # Check whether the requested product exists
