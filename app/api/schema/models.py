@@ -25,18 +25,17 @@ class BaseProduct(BaseModel):
           description="Unit available in warehouse",
           gt=0
      )
-     warehouse: int = Field(
-          description="Warehouse code (1-5)",
-        #   default=1,
-          default_factory=random_warehouse      
+
+     status: ProductStatus = Field(
+          default=ProductStatus.active,
+          description="Current stock status of the product"
      )
-     # status : ProductStatus
 
 class ProductCreate(BaseProduct):
      pass
 
 class ProductRead(BaseProduct):
-     status : ProductStatus
+     pass 
 
 class ProductUpdate(BaseModel):
      name: str | None = Field(
@@ -56,9 +55,7 @@ class ProductUpdate(BaseModel):
           description="Unit available in warehouse",
           gt=0
      )
-     warehouse: int | None = Field(
+     status: ProductStatus | None = Field(
           default=None,
-          description="Warehouse code (1-5)",
-          #   default=1,
-          # default_factory=random_warehouse      
+          description="Current stock status of the product"
      )

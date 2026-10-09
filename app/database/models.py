@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
-from sqlmodel import SQLModel,Field 
+from sqlmodel import SQLModel,Field
+from app.api.schema.models import ProductStatus
 
 class Product(SQLModel, table=True):
     __tablename__ = "products"
@@ -7,5 +8,6 @@ class Product(SQLModel, table=True):
     name: str = Field(max_length=100)
     price: float = Field(gt=0)
     stock: int = Field(gt=0)
+    status: ProductStatus = Field(default=ProductStatus.active)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 

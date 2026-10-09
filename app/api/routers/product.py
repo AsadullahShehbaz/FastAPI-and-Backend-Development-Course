@@ -1,17 +1,17 @@
 from fastapi import HTTPException, status
 from fastapi import APIRouter
+from sqlalchemy import update
 
-from app.schema.models import ProductCreate, ProductRead, ProductUpdate
-from app.database.session import SessionDep
-from app.database.models import Product
-from app.schema.models import ProductRead
+from app.api.schema.models import ProductCreate, ProductRead, ProductUpdate
+from app.api.dependencies import ServiceDep 
+from app.api.schema.models import ProductRead
 
-router = APIRouter()
+router = APIRouter(prefix="/product/v1", tags=["Product"])
 
-@router.get("/product",response_model=ProductRead)
-async def get_product(id: int,session: SessionDep) -> dict:
+@router.get("/{id}",response_model=ProductRead)
+async def get_product(id: int,service: ServiceDep ) -> dict:
 
-    product = await session.get(Product,id)
+    product = await service.get(id)
     # Check whether the requested product exists
     if product is None:
         raise HTTPException(
@@ -21,45 +21,26 @@ async def get_product(id: int,session: SessionDep) -> dict:
 
     return product
 
-@router.post("/product")
-async def create_product(data: ProductCreate, session: SessionDep) -> ProductRead:
+@router.post("/")
+async def create_product(data: ProductCreate, service: ServiceDep ) -> ProductRead:
 
-    new_product = Product(**data.model_dump())
-    session.add(new_product)
-    await session.commit()
-    await session.refresh(new_product)
-    return new_product
+    return await service.add(data)
 
 
-@router.patch("/product")
+@router.patch("/")
 async def patch_product(id : int, 
                   body: ProductUpdate,
-                  session: SessionDep
+                  service: ServiceDep 
                   )-> ProductRead:
-    
-    update = body.model_dump(exclude_none=True)
 
+    update = body.model_dump(exclude_unset=True)
     if not update:
-        raise HTTPException(
-            status_code=400,
-            detail="Data to update the product is not provided!",
-        )
-
-    product = await session.get(Product,id)
-    product.sqlmodel_update(update)
-    await session.commit()
-    await session.refresh(product)
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, "No data provided to update")
+    product =await service.update(id, update)
     return product
 
-@router.delete("/product")
-async def delete_product(id: int,session: SessionDep)-> dict[str,str]:
+@router.delete("/")
+async def delete_product(id: int,service: ServiceDep )-> dict[str,str]:
 
-     product = await session.get(Product,id)
-     if product is None:
-         raise HTTPException(
-             status_code=status.HTTP_404_NOT_FOUND,
-             detail="Product with the given ID was not found!",
-         )
-     await session.delete(product)
-     await session.commit()
-     return {"detail":f"Deleted the product with id {id}"}
+    deleted = await service.delete(id)
+    return {"message": "Product deleted successfully"} if deleted else {"message": "Product not found"}
