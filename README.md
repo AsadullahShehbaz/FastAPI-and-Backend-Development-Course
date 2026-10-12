@@ -14,6 +14,12 @@
 
 **📺 [Watch the full course on YouTube](https://www.youtube.com/watch?v=CG4WyImo72s)** · **Part 1 of the FastAPI Series**
 
+<br>
+
+[![Watch the FastAPI Full Course on YouTube](https://img.youtube.com/vi/CG4WyImo72s/maxresdefault.jpg)](https://www.youtube.com/watch?v=CG4WyImo72s)
+
+<sub>👆 Click the thumbnail to watch the full 10-hour course</sub>
+
 </div>
 
 ---
