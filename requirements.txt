@@ -1,0 +1,14 @@
+# Core (modules 2-7)
+fastapi[standard]
+scalar-fastapi
+
+# Module 8
+sqlmodel
+rich
+
+# Module 10 (needs a running PostgreSQL server)
+asyncpg
+pydantic-settings
+
+# Module 11
+redis
