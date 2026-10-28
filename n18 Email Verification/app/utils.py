@@ -1,0 +1,60 @@
+from datetime import datetime,timezone,timedelta
+from pathlib import Path
+from pickle import APPEND
+from uuid import uuid4
+
+from fastapi import HTTPException
+from itsdangerous import BadSignature, SignatureExpired, URLSafeTimedSerializer
+from app.config import security_settings as st 
+
+import jwt
+
+# Define path variables 
+APP_DIR = Path(__file__).resolve().parent 
+# print(APP_DIR)
+TEMPLATE_DIR = APP_DIR/"templates"
+# print(TEMPLATE_DIR)
+
+
+_serializer = URLSafeTimedSerializer(st.JWT_SECRET)
+
+def generate_url_safe_token(data: dict)-> str:
+    return _serializer.dumps(data)
+
+def decode_url_safe_token(token: str,expiry : timedelta | None = None)-> str:
+     try:
+        return _serializer.loads(
+            token,
+            max_age=expiry.total_seconds() if expiry else None
+        )
+     except (BadSignature,SignatureExpired):
+         return None 
+
+def generate_access_token(data : dict,expiry: timedelta = timedelta(days=1)):
+    return jwt.encode(
+            payload={
+                **data,
+                 "jti":str(uuid4()),
+                "exp": datetime.now(timezone.utc)+ expiry
+            },
+            algorithm=st.JWT_ALGORITHM,
+            key=st.JWT_SECRET
+        )
+
+def decode_access_token(token: str) -> dict:
+
+    try:
+        return jwt.decode(
+                    jwt=token,
+                    algorithms=[st.JWT_ALGORITHM],
+                    key=st.JWT_SECRET
+                )
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(
+            status_code=401,
+            detail="Expired Token"
+        )
+
+    
+    except jwt.PyJWTError:
+        return None
