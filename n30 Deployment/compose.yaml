@@ -1,0 +1,27 @@
+services:
+  api:
+    buid: .
+    env_file: .env
+    environment:
+      REDIS_HOST: redis
+    ports:
+      - "8000:8000"
+    command: ["fastapi", "run", "--port", "8000"]
+    depends_on:
+      - redis
+      - celery
+
+  redis:
+    image: redis:7
+    command: redis-server --appendonly yes
+    volumes:
+      - ./redis_data:/data
+
+  celery:
+    image: fastapifullcourse-api:latest 
+    env_file: .env
+    environment:
+      REDIS_HOST: redis
+    command: ["celery", "-A", "app.worker.tasks", "worker", "--loglevel=info"]
+    depends_on:
+      - redis

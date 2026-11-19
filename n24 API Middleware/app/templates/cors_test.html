@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FastAPI CORS Test</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            padding: 50px 15px;
+        }
+
+        .card {
+            background: white;
+            width: 380px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #0002;
+        }
+
+        h2 { margin-top: 0; }
+
+        .price {
+            font-size: 25px;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .status {
+            background: #dcfce7;
+            color: #15803d;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        p { color: #555; line-height: 1.6; }
+
+        button {
+            padding: 10px 18px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        #result { margin-top: 15px; }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <button onclick="fetchProduct()">Fetch Product</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function fetchProduct() {
+            const result = document.getElementById("result");
+
+            try {
+                const response = await fetch(
+                    "http://localhost:8000/product/v1/89374580-8079-4782-86a1-7b6f4a2734be"
+                );
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch product");
+                }
+
+                const data = await response.json();
+
+                result.innerHTML = `
+                    <div class="card">
+                        <span class="status">${data.status.toUpperCase()}</span>
+
+                        <h2>${data.name}</h2>
+                        <div class="price">$${data.price}</div>
+
+                        <p>
+                            <b>Stock:</b> ${data.stock}<br>
+                            <b>Destination:</b> ${data.destination}<br>
+                            <b>Delivery:</b> ${data.estimated_delivery}
+                        </p>
+
+                        <hr>
+
+                        <h3>Seller Information</h3>
+                        <p>
+                            <b>Name:</b> ${data.seller.name}<br>
+                            <b>Email:</b> ${data.seller.email}<br>
+                            <b>Address:</b> ${data.seller.address}
+                        </p>
+
+                        <hr>
+
+                        <h3>Delivery Timeline</h3>
+                        <p>
+                            <b>Status:</b> ${data.timeline[0].status}<br>
+                            <b>Description:</b> ${data.timeline[0].description}
+                        </p>
+                    </div>
+                `;
+
+            } catch (error) {
+                result.textContent = error.message;
+            }
+        }
+    </script>
+
+</body>
+</html>

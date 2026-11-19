@@ -2,7 +2,7 @@
 
 # ⚡ FastAPI Full Course: Zero to Production-Ready Backend
 
-### Part 1: Foundations, Auth & Async · Part 2: Relations, Migrations, Email & Real-World Features
+### Part 1: Foundations, Auth & Async · Part 2: Relations, Migrations, Email & Real-World Features · Part 3: Celery, Testing, React, Docker & AWS
 
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
@@ -11,15 +11,20 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
+![Celery](https://img.shields.io/badge/Celery-37814A?style=for-the-badge&logo=celery&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
 ![Jinja](https://img.shields.io/badge/Jinja-B41717?style=for-the-badge&logo=jinja&logoColor=white)
+![Pytest](https://img.shields.io/badge/Pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-FF9900?style=for-the-badge&logoColor=white)
 
 <br>
 
-| 🎬 Part 1 | 🎬 Part 2 |
-|:-:|:-:|
-| [![FastAPI Full Course Part 1](https://img.youtube.com/vi/CG4WyImo72s/maxresdefault.jpg)](https://www.youtube.com/watch?v=CG4WyImo72s) | [![FastAPI Full Course Part 2](https://img.youtube.com/vi/hj81HI2AsG4/maxresdefault.jpg)](https://www.youtube.com/watch?v=hj81HI2AsG4) |
-| **[Watch Part 1](https://www.youtube.com/watch?v=CG4WyImo72s)** | **[Watch Part 2](https://www.youtube.com/watch?v=hj81HI2AsG4)** |
+| 🎬 Part 1 | 🎬 Part 2 | 🎬 Part 3 (Final) |
+|:-:|:-:|:-:|
+| [![FastAPI Full Course Part 1](https://img.youtube.com/vi/CG4WyImo72s/maxresdefault.jpg)](https://www.youtube.com/watch?v=CG4WyImo72s) | [![FastAPI Full Course Part 2](https://img.youtube.com/vi/hj81HI2AsG4/maxresdefault.jpg)](https://www.youtube.com/watch?v=hj81HI2AsG4) | [![FastAPI Full Course Part 3](https://img.youtube.com/vi/G3UEDZEVw5g/maxresdefault.jpg)](https://www.youtube.com/watch?v=G3UEDZEVw5g) |
+| **[Watch Part 1](https://www.youtube.com/watch?v=CG4WyImo72s)** | **[Watch Part 2](https://www.youtube.com/watch?v=hj81HI2AsG4)** | **[Watch Part 3](https://www.youtube.com/watch?v=G3UEDZEVw5g)** |
 
 <sub>👆 Click a thumbnail to watch the full course on YouTube</sub>
 
@@ -29,58 +34,26 @@
 
 ## 📖 About This Course
 
-This repository is the companion code for the **FastAPI Full Course series**, a project-driven path from API basics to a production-style backend.
+This repository is the companion code for the **FastAPI Full Course series**, a project-driven path from API basics to a deployed, production-ready backend. **The series is now complete: all three parts are live.**
 
 | Part | What you build | Length | Modules | Code folders |
 |:-:|:--|:-:|:-:|:-:|
 | **Part 1** | A secure, database-backed, asynchronous REST API with registration, OAuth2 + JWT login, and Redis-powered logout | ~10 hrs | 14 | `m01` – `n11` |
-| **Part 2** | Real-world backend features: SQL relationships, Alembic migrations, delivery partners, product events, email sending, email verification, password reset, Jinja templates, and reviews | 8.5+ hrs | 10 | `n12` – `n20` |
+| **Part 2** | Real-world backend features: SQL relationships, Alembic migrations, delivery partners, product events, email sending, email verification, password reset, Jinja templates, and reviews | 9+ hrs | 10 | `n12` – `n20` |
+| **Part 3** | Production readiness: Celery background tasks, many-to-many relationships, error handling, middleware & CORS, API documentation, Pytest and API testing, a React frontend, Login with Google, WebSockets, Docker, and AWS deployment | ~7 hrs | 12 | `n21` – `n30` |
 
 Every module builds on the previous one, so you won't just learn FastAPI's features. You'll understand **how they fit together in a real backend**.
 
+📘 **Prefer reading?** Every topic and module tutorial is also available as written notes on the course website: **[asadullah-ai.vercel.app](https://asadullah-ai.vercel.app/)**
+
 > 🎯 **Who is this for?**
 > Python developers, aspiring backend engineers, and AI engineers who want to build APIs for real-world applications.
-> **Part 2 assumes you know the Part 1 material** (FastAPI basics, SQLModel, async, and JWT auth). If you don't, start with Part 1.
+> **Part 2 assumes you know the Part 1 material** (FastAPI basics, SQLModel, async, and JWT auth), and **Part 3 continues the same project** from Parts 1 and 2. If you are new to FastAPI, start with Part 1.
+> Part 3 is not for complete beginners to Python.
 
 ---
 
 ## 🗺️ The Learning Roadmap
-
-### Part 1
-
-```mermaid
-flowchart LR
-    A["🌐 Foundations<br/>Modules 1-2"] --> B["🧩 Core API Skills<br/>Modules 3-5"]
-    B --> C["✅ Data Validation<br/>Module 6"]
-    C --> D["🗄️ Databases<br/>Modules 7-8"]
-    D --> E["⚡ Async & Cloud DB<br/>Modules 9-10"]
-    E --> F["🏗️ Architecture<br/>Module 10.1"]
-    F --> G["🔐 Security<br/>Modules 11-11.2"]
-
-    style A fill:#e3f2fd,stroke:#1976d2,color:#000
-    style B fill:#e8f5e9,stroke:#388e3c,color:#000
-    style C fill:#fff8e1,stroke:#f9a825,color:#000
-    style D fill:#fce4ec,stroke:#c2185b,color:#000
-    style E fill:#f3e5f5,stroke:#7b1fa2,color:#000
-    style F fill:#e0f7fa,stroke:#00838f,color:#000
-    style G fill:#ffebee,stroke:#c62828,color:#000
-```
-
-### Part 2
-
-```mermaid
-flowchart LR
-    H["🔗 Data Modelling<br/>Modules 1-2"] --> I["📦 Core Features<br/>Modules 3-4"]
-    I --> J["✉️ Email & Templates<br/>Modules 5-7"]
-    J --> K["🔐 Account Flows<br/>Modules 8-9"]
-    K --> L["⭐ Reviews<br/>Module 10"]
-
-    style H fill:#e3f2fd,stroke:#1976d2,color:#000
-    style I fill:#e8f5e9,stroke:#388e3c,color:#000
-    style J fill:#fff8e1,stroke:#f9a825,color:#000
-    style K fill:#fce4ec,stroke:#c2185b,color:#000
-    style L fill:#f3e5f5,stroke:#7b1fa2,color:#000
-```
 
 | Part | Stage | What You'll Master | Modules |
 |:-:|:--|:--|:--:|
@@ -96,6 +69,12 @@ flowchart LR
 | 2 | ✉️ **Email & Templates** | Sending email, Jinja HTML templates, custom response classes | 5 – 7 |
 | 2 | 🔐 **Account Flows** | Email verification and password reset | 8 – 9 |
 | 2 | ⭐ **Reviews** | A product review feature that ties the backend together | 10 |
+| 3 | ⚙️ **Background Jobs** | Celery workers and Redis for tasks that shouldn't block a request | 1 |
+| 3 | 🔗 **Advanced Modelling** | Many-to-many relationships with SQLModel | 2 |
+| 3 | 🛡️ **Reliability & API Layer** | Error handling, middleware, CORS, and API documentation | 3 – 5 |
+| 3 | 🧪 **Testing** | Pytest fundamentals and full API testing | 6 – 7 |
+| 3 | 🖥️ **Frontend & Social Login** | A React frontend and Login with Google (OAuth) | 8 – 9 |
+| 3 | 🚀 **Real-Time & Deployment** | WebSockets, Docker, and deploying FastAPI to AWS | 10 – 12 |
 
 ---
 
@@ -139,6 +118,26 @@ flowchart LR
 | 8 | **Email Verification** | [`06:53:31`](https://www.youtube.com/watch?v=hj81HI2AsG4&t=24811s) | ~57 min | 🔴 Advanced |
 | 9 | **Password Reset** | [`07:50:23`](https://www.youtube.com/watch?v=hj81HI2AsG4&t=28223s) | ~38 min | 🔴 Advanced |
 | 10 | **Product Review** | [`08:28:29`](https://www.youtube.com/watch?v=hj81HI2AsG4&t=30509s) | Final module | 🔴 Advanced |
+
+### 🎬 Part 3 (Final): Celery, Testing, React, Docker & AWS
+
+📺 **[Watch Part 3 on YouTube](https://www.youtube.com/watch?v=G3UEDZEVw5g)**
+
+| # | Module | Timestamp | Approx. Length | Level |
+|:-:|:--|:--:|:--:|:--:|
+| 0 | **Intro** | [`00:00:00`](https://www.youtube.com/watch?v=G3UEDZEVw5g&t=0s) | ~3 min | 🟡 Intermediate |
+| 1 | **Celery** | [`00:02:30`](https://www.youtube.com/watch?v=G3UEDZEVw5g&t=150s) | ~46 min | 🔴 Advanced |
+| 2 | **Many to Many Relationship** | [`00:48:10`](https://www.youtube.com/watch?v=G3UEDZEVw5g&t=2890s) | ~35 min | 🔴 Advanced |
+| 3 | **Error Handling** | [`01:23:34`](https://www.youtube.com/watch?v=G3UEDZEVw5g&t=5014s) | ~32 min | 🔴 Advanced |
+| 4 | **Middleware & CORS** | [`01:55:57`](https://www.youtube.com/watch?v=G3UEDZEVw5g&t=6957s) | ~22 min | 🔴 Advanced |
+| 5 | **API Documentation** | [`02:18:07`](https://www.youtube.com/watch?v=G3UEDZEVw5g&t=8287s) | ~19 min | 🟡 Intermediate |
+| 6 | **Pytest** | [`02:37:36`](https://www.youtube.com/watch?v=G3UEDZEVw5g&t=9456s) | ~24 min | 🟡 Intermediate |
+| 7 | **API Testing** | [`03:01:36`](https://www.youtube.com/watch?v=G3UEDZEVw5g&t=10896s) | ~1 hr 21 min | 🔴 Advanced |
+| 8 | **Frontend: React** | [`04:22:19`](https://www.youtube.com/watch?v=G3UEDZEVw5g&t=15739s) | ~1 hr 9 min | 🔴 Advanced |
+| 9 | **Login with Google** | [`05:31:09`](https://www.youtube.com/watch?v=G3UEDZEVw5g&t=19869s) | ~20 min | 🔴 Advanced |
+| 10 | **WebSocket** | [`05:51:12`](https://www.youtube.com/watch?v=G3UEDZEVw5g&t=21072s) | ~18 min | 🔴 Advanced |
+| 11 | **Docker** | [`06:09:34`](https://www.youtube.com/watch?v=G3UEDZEVw5g&t=22174s) | ~20 min | 🔴 Advanced |
+| 12 | **AWS Deployment** | [`06:30:02`](https://www.youtube.com/watch?v=G3UEDZEVw5g&t=23402s) | Final module | 🔴 Advanced |
 
 ---
 
@@ -334,6 +333,95 @@ flowchart LR
 **✅ Outcome:** A feature-complete, real-world backend.
 </details>
 
+## Part 3
+
+<details>
+<summary><b>⚙️ Stage 13: Background Jobs (Module 1)</b></summary>
+
+### Module 1: Celery
+- Why slow work (email, notifications) shouldn't run inside a request
+- Setting up Celery workers with Redis as the broker
+- Writing and triggering background tasks from FastAPI endpoints
+
+**✅ Outcome:** An API that offloads slow work to background workers.
+</details>
+
+<details>
+<summary><b>🔗 Stage 14: Advanced Modelling (Module 2)</b></summary>
+
+### Module 2: Many to Many Relationship
+- Modelling many-to-many relationships with SQLModel link tables
+- Reading and writing related records on both sides
+- Applying schema changes with the migrations workflow from Part 2
+
+**✅ Outcome:** A relational schema that supports real many-to-many data.
+</details>
+
+<details>
+<summary><b>🛡️ Stage 15: Reliability & API Layer (Modules 3-5)</b></summary>
+
+### Module 3: Error Handling
+- Raising and handling errors consistently across the API
+- Custom exceptions and clean, predictable error responses
+
+### Module 4: Middleware & CORS
+- Writing middleware that runs on every request
+- Configuring CORS so a browser frontend can call your API safely
+
+### Module 5: API Documentation
+- Improving the auto-generated OpenAPI docs
+- Making endpoints easier to understand, test, and share
+
+**✅ Outcome:** A robust, well-documented API that a frontend can consume.
+</details>
+
+<details>
+<summary><b>🧪 Stage 16: Testing (Modules 6-7)</b></summary>
+
+### Module 6: Pytest
+- Pytest fundamentals: tests, assertions, and fixtures
+- Structuring a test suite for a FastAPI project
+
+### Module 7: API Testing
+- Testing endpoints end to end
+- Overriding dependencies and using a test database
+- Testing authenticated routes
+
+**✅ Outcome:** An automated test suite you can run before every release.
+</details>
+
+<details>
+<summary><b>🖥️ Stage 17: Frontend & Social Login (Modules 8-9)</b></summary>
+
+### Module 8: Frontend: React
+- Building a React frontend for the backend
+- Calling your API from the browser
+
+### Module 9: Login with Google
+- Adding Google sign-in (OAuth) to the app
+- Connecting social login to your existing authentication
+
+**✅ Outcome:** A full-stack app with a working frontend and Google login.
+</details>
+
+<details>
+<summary><b>🚀 Stage 18: Real-Time & Deployment (Modules 10-12)</b></summary>
+
+### Module 10: WebSocket
+- Real-time, two-way communication with WebSockets
+- Pushing live updates from the backend to clients
+
+### Module 11: Docker
+- Containerizing the FastAPI app
+- Running the full stack (API, Redis, Celery worker) with containers
+
+### Module 12: AWS Deployment
+- Deploying the containerized FastAPI backend to AWS
+- Going from a local project to a live, production-style deployment
+
+**✅ Outcome:** A production-ready FastAPI backend, containerized and deployed to the cloud.
+</details>
+
 ---
 
 ## 🛠️ Tech Stack
@@ -347,10 +435,16 @@ flowchart LR
 | **Migrations** | Alembic |
 | **Database** | PostgreSQL (hosted on Supabase) |
 | **Concurrency** | Async IO (`async` / `await`) |
-| **Auth** | OAuth2 Password Flow, JWT |
-| **Cache / Token Store** | Redis |
+| **Auth** | OAuth2 Password Flow, JWT, Login with Google (OAuth) |
+| **Cache / Token Store / Broker** | Redis |
+| **Background Tasks** | Celery |
 | **Templates** | Jinja |
 | **Email** | Transactional email from FastAPI (verification and password reset) |
+| **Real-Time** | WebSockets |
+| **Testing** | Pytest |
+| **Frontend** | React |
+| **Containers** | Docker |
+| **Cloud** | AWS |
 
 ---
 
@@ -366,10 +460,17 @@ flowchart LR
 - ✅ **Asynchronous programming** for high-throughput services
 - ✅ Working with **managed PostgreSQL** (Supabase)
 - ✅ **Modular architecture** using API Routers
-- ✅ **Secure authentication**: password hashing, OAuth2, JWT
+- ✅ **Secure authentication**: password hashing, OAuth2, JWT, and **Login with Google**
 - ✅ **Token invalidation** using Redis
 - ✅ **Email sending**, **email verification**, and **password reset** flows
 - ✅ **Custom response classes** and **Jinja-rendered HTML** from FastAPI
+- ✅ **Background task processing** with Celery and Redis
+- ✅ **Error handling, middleware, and CORS** configuration
+- ✅ **Automated testing** with Pytest, including API and authenticated-route tests
+- ✅ **React frontend** integrated with a FastAPI backend
+- ✅ **Real-time features** with WebSockets
+- ✅ **Containerization** with Docker
+- ✅ **Cloud deployment** of a FastAPI backend to AWS
 - ✅ Building **real-world features**: delivery partners, product events, and reviews
 - ✅ Using **auto-generated OpenAPI documentation** for testing and collaboration
 
@@ -401,6 +502,17 @@ Each folder is one module of the course, so you can open the code for the exact 
 | `n18 Email Verification` | 2 | Email verification flow |
 | `n19 Reset Password` | 2 | Password reset flow |
 | `n20 Review` | 2 | Product review feature |
+| `n21 Celery` | 3 | Background tasks with Celery and Redis |
+| `n22 Many to Many` | 3 | Many-to-many relationships with SQLModel |
+| `n23 Error Handling` | 3 | Error handling |
+| `n24 API Middleware` | 3 | Middleware and CORS |
+| `n25 API Documentation` | 3 | API documentation |
+| `n26 websocket` | 3 | WebSockets |
+| `n27 Pytest` | 3 | Pytest fundamentals |
+| `n27 API Testing` | 3 | API testing |
+| `n28 React` | 3 | React frontend |
+| `n29 frontend` | 3 | Frontend (React app and Login with Google) |
+| `n30 Deployment` | 3 | Docker and AWS deployment |
 
 ---
 
@@ -411,8 +523,10 @@ Each folder is one module of the course, so you can open the code for the exact 
 - Basic Python knowledge (functions, classes, dictionaries)
 - A code editor such as VS Code
 - For Part 2: familiarity with Part 1 (FastAPI basics, SQLModel, and JWT authentication)
-- Optional: a free [Supabase](https://supabase.com) account (Part 1, Module 10 onward) and Redis (Part 1, Module 11.2)
+- For Part 3: Parts 1 and 2 completed, since Part 3 continues the same project
+- Optional: a free [Supabase](https://supabase.com) account (Part 1, Module 10 onward) and Redis (Part 1, Module 11.2; also used as the Celery broker in Part 3)
 - Optional: an email account or SMTP service for testing Part 2's email modules (Send Mail, Email Verification, Password Reset)
+- Optional, for Part 3: [Node.js](https://nodejs.org) (React frontend), [Docker](https://www.docker.com/) (containers), a Google Cloud project for OAuth credentials (Login with Google), and an [AWS](https://aws.amazon.com/) account (deployment)
 
 ### Setup
 
@@ -446,6 +560,15 @@ alembic revision --autogenerate -m "describe your change"
 alembic upgrade head
 ```
 
+### Running tests (Part 3, Pytest)
+
+```bash
+# From inside the testing module folder
+pytest
+```
+
+> 💡 Part 3 modules that need extra services (a Celery worker, the React dev server, or Docker containers) are explained in the matching lesson, so follow the video for the exact commands.
+
 Then open:
 - **Interactive docs (Swagger UI):** http://127.0.0.1:8000/docs
 - **Alternative docs (ReDoc):** http://127.0.0.1:8000/redoc
@@ -460,14 +583,20 @@ Then open:
 4. **Use `/docs` constantly.** It's your testing playground.
 5. **Finish each module's outcome** before moving to the next stage.
 6. **Compare with the repo.** If your code differs from the video, check the matching module folder.
+7. **Read the written notes.** Every module has a tutorial on [asadullah-ai.vercel.app](https://asadullah-ai.vercel.app/) for quick revision.
 
 ---
 
-## 🔭 What's Next
+## 🏁 Course Complete
 
-Parts 1 and 2 are live. **Part 3 is coming soon**, with more advanced FastAPI concepts.
+With Part 3, the **FastAPI Full Course** is finished: you've gone from your first endpoint to a tested, containerized backend with background jobs, a React frontend, and an AWS deployment.
 
-⭐ **Star this repo** to get notified when new parts land.
+⭐ **Star this repo** if it helped you, and subscribe to the channel for more AI engineering, backend development, and MLOps content.
+
+### 📺 Full Playlist
+- **Part 1** (Python basics, SQLModel, Async, Auth, JWT): https://youtu.be/CG4WyImo72s
+- **Part 2** (Alembic, relations, email, password reset, Jinja): https://youtu.be/hj81HI2AsG4
+- **Part 3** (Celery, Pytest, React, Docker, AWS): https://youtu.be/G3UEDZEVw5g
 
 ---
 
@@ -490,6 +619,6 @@ Subscribe to **Asadullah AI** for practical AI engineering, backend development,
 
 **If this course helped you, give the repo a ⭐ and share it with a friend who is learning backend development.**
 
-`#FastAPI` `#Python` `#BackendDevelopment`
+`#FastAPI` `#Python` `#BackendDevelopment` `#Docker`
 
 </div>
