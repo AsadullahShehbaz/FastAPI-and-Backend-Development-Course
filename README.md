@@ -23,7 +23,7 @@
 
 | 🎬 Part 1 | 🎬 Part 2 | 🎬 Part 3 (Final) |
 |:-:|:-:|:-:|
-| [![FastAPI Full Course Part 1](https://img.youtube.com/vi/CG4WyImo72s/maxresdefault.jpg)](https://www.youtube.com/watch?v=CG4WyImo72s) | [![FastAPI Full Course Part 2](https://img.youtube.com/vi/hj81HI2AsG4/maxresdefault.jpg)](https://www.youtube.com/watch?v=hj81HI2AsG4) | [![FastAPI Full Course Part 3](https://img.youtube.com/vi/G3UEDZEVw5g/maxresdefault.jpg)](https://www.youtube.com/watch?v=G3UEDZEVw5g) |
+| [![FastAPI Full Course Part 1](https://img.youtube.com/vi/CG4WyImo72s/maxresdefault.jpg)](https://www.youtube.com/watch?v=CG4WyImo72s) | [![FastAPI Full Course Part 2](https://img.youtube.com/vi/hj81HI2AsG4/maxresdefault.jpg)](https://www.youtube.com/watch?v=hj81HI2AsG4) | [![FastAPI Full Course Part 3](https://img.youtube.com/vi/G3UEDZEVw5g/hqdefault.jpg)](https://www.youtube.com/watch?v=G3UEDZEVw5g) |
 | **[Watch Part 1](https://www.youtube.com/watch?v=CG4WyImo72s)** | **[Watch Part 2](https://www.youtube.com/watch?v=hj81HI2AsG4)** | **[Watch Part 3](https://www.youtube.com/watch?v=G3UEDZEVw5g)** |
 
 <sub>👆 Click a thumbnail to watch the full course on YouTube</sub>
